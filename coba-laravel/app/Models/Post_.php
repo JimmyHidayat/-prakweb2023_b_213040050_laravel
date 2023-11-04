@@ -1,39 +1,13 @@
-<?php
+<?
 
-use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\Route;
-use App\Models\Post;
+namespace App\Models;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+class Post
+{
 
-Route::get('/', function () {
-    return view('home', [
-        "title" => "Home"
-    ]);
-});
-
-Route::get('/about', function () {
-    return view('about', [
-        "title" => "About",
-        "name" => 'Jimmy Hidayat',
-        "email" => 'jimmy.hidayat@gmail.com',
-        "image" => 'Wall E.jpg'
-    ]);
-});
-
-
-Route::get('/blog', function () {
-    $blog_posts = [
+    private static $blog_posts = [
         [
+
             "title" => "Judul Post Pertama",
             "slug" => "Judul Post Pertama",
             "author" => "Jimmy Hidayat",
@@ -47,10 +21,13 @@ Route::get('/blog', function () {
         ]
     ];
 
-    return view('posts', [
-        "title" => "PostS",
-        "posts" => $blog_posts
-    ]);
-});
-Route::get('/posts',[PostController :: class, 'index']);
-Route::get('/posts/{post:slug}', [PostController :: class, 'show']);
+    public static function all()
+    {
+        return collect (self::$blog_posts);
+    }
+    public static function find($slug)
+    {
+        $posts = static::all();
+        return $posts->firstWhere('slug', $slug);
+    }
+}

@@ -6,10 +6,15 @@ use App\Models\Post;
 class PostController extends Controller {
     public function index() {
         return view('posts', [
-            "tittle" => "Posts",
+            "title" => "Posts",
             "posts" => Post::all()
         ]);
     }
 
-    public function show($slug)
+    public function show(Post $post) {
+        return view('post', [
+            "title" => "Post",
+            "post" => $post
+        ]);
+    }
 }
