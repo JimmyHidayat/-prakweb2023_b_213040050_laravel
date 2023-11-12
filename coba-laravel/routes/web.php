@@ -19,13 +19,15 @@ use App\Models\Post;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home"
+        "title" => 'Home',
+        "active" => 'home'
     ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
-        "title" => "About",
+        "title" => 'About',
+        "active" => 'about',
         "name" => 'Jimmy Hidayat',
         "email" => 'jimmy.hidayat@gmail.com',
         "image" => 'Wall E.jpg'
@@ -36,16 +38,16 @@ Route::get('/about', function () {
 Route::get('/blog', function () {
     $blog_posts = [
         [
-            "title" => "Judul Post Pertama",
-            "slug" => "Judul Post Pertama",
-            "author" => "Jimmy Hidayat",
-            "body" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur sint, laboriosam asperiores sit molestiae, odio ex nostrum nemo sed ipsam exercitationem? Cupiditate quod itaque quidem temporibus repellendus, quaerat ducimus. Nostrum!"
+            "title" => 'Judul Post Pertama',
+            "slug" => 'Judul Post Pertama',
+            "author" => 'Jimmy Hidayat',
+            "body" => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur sint, laboriosam asperiores sit molestiae, odio ex nostrum nemo sed ipsam exercitationem? Cupiditate quod itaque quidem temporibus repellendus, quaerat ducimus. Nostrum!'
         ],
         [
-            "title" => "Judul Post Kedua",
-            "slug" => "Judul Post Kedua",
-            "author" => "Jimmy Hidayat",
-            "body" => "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente ipsam debitis culpa. Illum, quia hic ducimus rem, asperiores tempora explicabo expedita non, quae libero quaerat voluptatibus sequi sunt maxime numquam quisquam voluptatem alias nesciunt sed recusandae vitae aliquid voluptas nemo. Cumque, neque inventore assumenda corrupti magni ab consequuntur suscipit quia quaerat recusandae blanditiis mollitia doloribus aliquam sint ipsa laborum architecto error, enim modi voluptates facilis velit? Alias nulla qui dolore mollitia beatae nobis est, impedit libero magni hic distinctio dolorem maiores atque unde necessitatibus molestiae repellat, reiciendis laborum. Voluptas adipisci optio eos iure autem quasi, ipsum sunt quos porro dolore."
+            "title" => 'Judul Post Kedua',
+            "slug" => 'Judul Post Kedua',
+            "author" => 'Jimmy Hidayat',
+            "body" => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente ipsam debitis culpa. Illum, quia hic ducimus rem, asperiores tempora explicabo expedita non, quae libero quaerat voluptatibus sequi sunt maxime numquam quisquam voluptatem alias nesciunt sed recusandae vitae aliquid voluptas nemo. Cumque, neque inventore assumenda corrupti magni ab consequuntur suscipit quia quaerat recusandae blanditiis mollitia doloribus aliquam sint ipsa laborum architecto error, enim modi voluptates facilis velit? Alias nulla qui dolore mollitia beatae nobis est, impedit libero magni hic distinctio dolorem maiores atque unde necessitatibus molestiae repellat, reiciendis laborum. Voluptas adipisci optio eos iure autem quasi, ipsum sunt quos porro dolore.'
         ]
     ];
 
@@ -61,19 +63,5 @@ Route::get('/categories', function () {
         'title' => 'Post Categories',
         "active" => 'categories',
         'categories' => Category::all()
-    ]);
-});
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'title' => "Post by Category :$category->name",
-        "active" => 'categories',
-        'posts' => $category->posts->load('category', 'author')
-    ]);
-});
-
-Route::get('/author/{user}', function (User $author) {
-    return view('post', [
-        'title' => "Post By Author : $author->name",
-        'posts' => $author->posts->load('category', 'author'),
     ]);
 });
